@@ -17,7 +17,7 @@ class Movie {
   });
 
   factory Movie.fromJson(Map<String, dynamic> json) {
-    List jsonList = (json['genre_ids'] ?? []) as List;
+    List jsonList = json['genre_ids'] ?? [];
     List<int> genreIdsList = jsonList.map((genreId) => genreId as int).toList();
     return Movie(
       adult: json['adult'] ?? false,
@@ -51,4 +51,23 @@ class Movie {
   final bool video;
   final num voteAverage;
   final int voteCount;
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'adult': adult,
+      'backdrop_path': backdropPath,
+      'genre_ids': genreIds,
+      'id': id,
+      'original_language': originalLanguage,
+      'original_title': originalTitle,
+      'overview': overview,
+      'popularity': popularity,
+      'poster_path': posterPath,
+      'release_date': releaseDate,
+      'title': title,
+      'video': video,
+      'vote_average': voteAverage,
+      'vote_count': voteCount,
+    };
+  }
 }

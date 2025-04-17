@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         appBarTheme: const AppBarTheme(color: ColorConstants.appThemeColor),
       ),
-      //home: HomePage(movieApiService: MovieApiService()),
       initialRoute: RouteConstants.homeRoute,
       onGenerateRoute: AppRoutes.generateRoute,
     );
