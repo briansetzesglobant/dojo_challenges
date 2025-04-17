@@ -19,10 +19,10 @@ class Unsuccess extends StatelessWidget {
             children: [
               Image.asset(
                 image,
-                width: NumberConstants.unsuccessImageSize,
-                height: NumberConstants.unsuccessImageSize,
+                width: NumberConstants.imageSize,
+                height: NumberConstants.imageSize,
               ),
-              const SizedBox(height: NumberConstants.unsuccessSizedBox),
+              const SizedBox(height: NumberConstants.sizedBoxSize),
               Text(
                 text,
                 style: TextStyleConstants.homePageUnsuccessMessageTextStyle,
