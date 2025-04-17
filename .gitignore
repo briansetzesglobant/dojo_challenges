@@ -10,6 +10,8 @@ env.g.dart
 .buildlog/
 .history
 .svn/
+.flutter-plugins-dependencies
+Podfile
 
 # IntelliJ related
 *.iml
@@ -63,6 +65,13 @@ env.g.dart
 **/ios/Flutter/flutter_assets/
 **/ios/ServiceDefinitions.json
 **/ios/Runner/GeneratedPluginRegistrant.*
+**/ios/Flutter/Debug.xcconfig
+**/ios/Flutter/Release.xcconfig
+
+# macos/XCode related
+**/macos/Flutter/Flutter-Debug.xcconfig
+**/macos/Flutter/Flutter-Release.xcconfig
+**/macos/Flutter/GeneratedPluginRegistrant.swift
 
 # Exceptions to above rules.
 !**/ios/**/default.mode1v3

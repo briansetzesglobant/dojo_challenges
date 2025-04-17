@@ -1,6 +1,9 @@
 # Flutter-related
 **/Flutter/ephemeral/
 **/Pods/
+**/Flutter/Flutter-Debug.xcconfig
+**/Flutter/Flutter-Release.xcconfig
+**/Flutter/GeneratedPluginRegistrant.swift
 
 # Xcode-related
 **/dgph
