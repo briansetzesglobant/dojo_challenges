@@ -4,8 +4,8 @@ import 'color_constants.dart';
 import 'number_constants.dart';
 
 abstract class TextStyleConstants {
-  static const TextStyle homePageErrorMessageTextStyle = TextStyle(
-    fontSize: NumberConstants.homePageErrorMessageTextStyleFontSize,
+  static const TextStyle homePageUnsuccessMessageTextStyle = TextStyle(
+    fontSize: NumberConstants.homePageUnsuccessMessageTextStyleFontSize,
     color: ColorConstants.appThemeColor,
     fontWeight: FontWeight.bold,
   );

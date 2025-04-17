@@ -5,13 +5,14 @@ import 'package:http/http.dart';
 
 import '../../env/env.dart';
 import '../../model/movie_list.dart';
+import '../../resource/data_state.dart';
 import '../../util/api_service_constants.dart';
 import '../../util/string_constants.dart';
 
-class MovieApiService {
+class ApiService {
   Client client = Client();
 
-  Future<MovieList> getMovieList() async {
+  Future<DataState<MovieList>> getMovieList() async {
     try {
       final response = await client.get(
         Uri.parse(
@@ -19,12 +20,21 @@ class MovieApiService {
         ),
       );
       if (response.statusCode == HttpStatus.ok) {
-        return MovieList.fromJson(json.decode(response.body));
+        MovieList movieList = MovieList.fromJson(json.decode(response.body));
+        if (movieList.results.isNotEmpty) {
+          return DataSuccess(movieList);
+        } else {
+          return const DataEmpty();
+        }
       } else {
-        throw Exception(StringConstants.errorMessage);
+        return DataFailed(
+          '${StringConstants.errorMessage}: ${response.statusCode}',
+        );
       }
-    } catch (e) {
-      throw Exception(StringConstants.errorMessage);
+    } catch (exception) {
+      return DataFailed(
+        '${StringConstants.errorMessage}: ${exception.toString()}',
+      );
     }
   }
 }

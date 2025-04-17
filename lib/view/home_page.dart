@@ -1,54 +1,60 @@
+import 'package:dojo_challenges/util/asset_constants.dart';
 import 'package:dojo_challenges/util/color_constants.dart';
 import 'package:flutter/material.dart';
 
-import '../data_source/remote/movie_api_service.dart';
 import '../model/movie_list.dart';
+import '../repository/repository.dart';
+import '../resource/data_state.dart';
 import '../util/api_service_constants.dart';
 import '../util/string_constants.dart';
-import '../util/text_style_constants.dart';
 import '../widget/movie_card.dart';
+import '../widget/unsuccess.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({super.key, required this.movieApiService});
+  const HomePage({super.key, required this.repository});
 
-  final MovieApiService movieApiService;
+  final Repository repository;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text(StringConstants.homePageTitle)),
       body: SafeArea(
-        child: FutureBuilder(
-          future: movieApiService.getMovieList(),
-          builder: (context, AsyncSnapshot<MovieList> snapshot) {
+        child: FutureBuilder<DataState<MovieList>>(
+          future: repository.getMovieList(),
+          builder: (context, AsyncSnapshot<DataState<MovieList>> snapshot) {
             if (snapshot.hasData) {
-              return ListView.builder(
-                itemCount: snapshot.data?.results.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return ListTile(
-                    title: MovieCard(
-                      title: snapshot.data!.results[index].title,
-                      image:
-                          '${ApiServiceConstants.imageNetwork}${snapshot.data!.results[index].posterPath}',
-                    ),
+              switch (snapshot.data!.type) {
+                case DataStateType.success:
+                  return ListView.builder(
+                    itemCount: snapshot.data!.data!.results.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(
+                        title: MovieCard(
+                          title: snapshot.data!.data!.results[index].title,
+                          image:
+                              '${ApiServiceConstants.imageNetwork}${snapshot.data!.data!.results[index].posterPath}',
+                        ),
+                      );
+                    },
                   );
-                },
-              );
-            } else if (snapshot.hasError) {
-              return Center(
-                child: Text(
-                  StringConstants.errorMessage,
-                  style: TextStyleConstants.homePageErrorMessageTextStyle,
-                  textAlign: TextAlign.center,
-                ),
-              );
-            } else {
-              return const Center(
-                child: CircularProgressIndicator(
-                  color: ColorConstants.appThemeColor,
-                ),
-              );
+                case DataStateType.empty:
+                  return Unsuccess(
+                    text: StringConstants.homePageEmptyMessage,
+                    image: AssetConstants.homePageEmptyImage,
+                  );
+                case DataStateType.error:
+                  return Unsuccess(
+                    text: snapshot.data!.error!,
+                    image: AssetConstants.homePageErrorImage,
+                  );
+              }
             }
+            return const Center(
+              child: CircularProgressIndicator(
+                color: ColorConstants.appThemeColor,
+              ),
+            );
           },
         ),
       ),
