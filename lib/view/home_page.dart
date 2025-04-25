@@ -1,20 +1,36 @@
-import 'package:dojo_challenges/util/asset_constants.dart';
-import 'package:dojo_challenges/util/color_constants.dart';
-import 'package:dojo_challenges/view/splash_screen.dart';
-import 'package:dojo_challenges/view/success.dart';
 import 'package:flutter/material.dart';
 
+import '../data_source/local/data_base/data_base.dart';
+import '../data_source/remote/api_service/api_service.dart';
 import '../model/movie_list.dart';
-import '../repository/repository.dart';
+import '../repository/repository_interface.dart';
+import '../repository/vote_count_repository.dart';
 import '../resource/data_state.dart';
+import '../util/asset_constants.dart';
+import '../util/color_constants.dart';
 import '../util/string_constants.dart';
 import '../widget/unsuccess.dart';
 import 'movie_scaffold.dart';
+import 'splash_screen.dart';
+import 'success.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.repository});
 
-  final Repository repository;
+  final RepositoryInterface repository;
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  late RepositoryInterface repository;
+
+  @override
+  void initState() {
+    super.initState();
+    repository = widget.repository;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +43,14 @@ class HomePage extends StatelessWidget {
               return MovieScaffold(
                 title: StringConstants.homePageTitle,
                 child: Success(movies: snapshot.data!.data!.results),
+                callBack: () {
+                  setState(() {
+                    repository = VoteCountRepository(
+                      apiService: ApiService(),
+                      dataBase: DataBase.instance,
+                    );
+                  });
+                },
               );
             case DataStateType.empty:
               return MovieScaffold(

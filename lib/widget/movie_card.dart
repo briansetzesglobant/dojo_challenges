@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dojo_challenges/util/number_constants.dart';
-import 'package:dojo_challenges/util/text_style_constants.dart';
 import 'package:flutter/material.dart';
 
 import '../util/asset_constants.dart';
+import '../util/number_constants.dart';
+import '../util/text_style_constants.dart';
 
 class MovieCard extends StatelessWidget {
   const MovieCard({super.key, required this.title, required this.image});

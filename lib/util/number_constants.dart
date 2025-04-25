@@ -21,4 +21,9 @@ abstract class NumberConstants {
 
   static const double imageSize = 200.0;
   static const double sizedBoxSize = 50.0;
+
+  static const int voteCountRepositoryCondition = 20000;
+
+  static const double movieScaffoldButtonPadding = 10.0;
+  static const double movieScaffoldButtonTextStyleFontSize = 30.0;
 }

@@ -3,15 +3,17 @@ import 'dart:io';
 
 import 'package:http/http.dart';
 
-import '../../env/env.dart';
-import '../../model/movie_list.dart';
-import '../../resource/data_state.dart';
-import '../../util/api_service_constants.dart';
-import '../../util/string_constants.dart';
+import '../../../env/env.dart';
+import '../../../model/movie_list.dart';
+import '../../../resource/data_state.dart';
+import '../../../util/api_service_constants.dart';
+import '../../../util/string_constants.dart';
+import 'api_service_interface.dart';
 
-class ApiService {
+class ApiService implements ApiServiceInterface {
   Client client = Client();
 
+  @override
   Future<DataState<MovieList>> getMovieList() async {
     try {
       final response = await client.get(
