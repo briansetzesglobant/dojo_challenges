@@ -1,17 +1,16 @@
-import 'package:dojo_challenges/model/movie_list.dart';
-
-import '../data_source/local/data_base.dart';
-import '../data_source/remote/api_service.dart';
+import '../data_source/local/data_base/data_base_interface.dart';
+import '../data_source/remote/api_service/api_service_interface.dart';
 import '../model/movie.dart';
+import '../model/movie_list.dart';
 import '../resource/data_state.dart';
 import '../util/string_constants.dart';
 import 'repository_interface.dart';
 
-class Repository extends RepositoryInterface {
+class Repository implements RepositoryInterface {
   Repository({required this.apiService, required this.dataBase});
 
-  final ApiService apiService;
-  final DataBase dataBase;
+  final ApiServiceInterface apiService;
+  final DataBaseInterface dataBase;
 
   @override
   Future<DataState<MovieList>> getMovieList() async {

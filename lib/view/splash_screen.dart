@@ -1,6 +1,6 @@
-import 'package:dojo_challenges/util/asset_constants.dart';
 import 'package:flutter/material.dart';
 
+import '../util/asset_constants.dart';
 import '../util/color_constants.dart';
 import '../util/number_constants.dart';
 

@@ -1,17 +1,19 @@
 import 'dart:convert';
 
-import 'package:dojo_challenges/util/data_base_constants.dart';
 import 'package:sqflite/sqflite.dart';
 
-import '../../model/movie.dart';
+import '../../../model/movie.dart';
+import '../../../util/data_base_constants.dart';
+import 'data_base_interface.dart';
 
-class DataBase {
+class DataBase implements DataBaseInterface {
   DataBase._privateConstructor();
 
   static final DataBase instance = DataBase._privateConstructor();
 
   late Database _database;
 
+  @override
   Future<void> openDataBase() async {
     _database = await openDatabase(
       DataBaseConstants.dataBaseName,
@@ -37,14 +39,17 @@ class DataBase {
     );
   }
 
+  @override
   Future<void> closeDataBase() async {
     await _database.close();
   }
 
+  @override
   Future<void> deleteMovies() async {
     await _database.delete(DataBaseConstants.tableName);
   }
 
+  @override
   Future<void> insertMovies(List<Movie> movies) async {
     for (var movie in movies) {
       var movieJson = movie.toJson();
@@ -55,6 +60,7 @@ class DataBase {
     }
   }
 
+  @override
   Future<List<Movie>> getMovies() async {
     List<Map<String, dynamic>> movies = await _database.query(
       DataBaseConstants.tableName,

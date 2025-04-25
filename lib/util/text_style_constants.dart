@@ -21,4 +21,9 @@ abstract class TextStyleConstants {
     color: Colors.red,
     fontWeight: FontWeight.bold,
   );
+
+  static const TextStyle movieScaffoldButtonTextStyle = TextStyle(
+    fontSize: NumberConstants.movieScaffoldButtonTextStyleFontSize,
+    color: Colors.black,
+  );
 }
