@@ -1,8 +1,6 @@
 abstract class NumberConstants {
   static const int appThemeColorHex = 0xFF3079C2;
 
-  static const double homePageUnsuccessMessageTextStyleFontSize = 40.0;
-
   static const double movieCardHeight = 350;
   static const double movieCardBorderWidth = 10.0;
   static const double movieCardVerticalPadding = 10.0;
@@ -11,6 +9,8 @@ abstract class NumberConstants {
   static const double movieCardBorderRadius = 50.0;
   static const double movieCardCachedNetworkImageSize = 130.0;
   static const double movieCardTitleTextStyleFontSize = 30.0;
+
+  static const double unsuccessMessageTextStyleFontSize = 40.0;
 
   static const double defaultPagePadding = 20.0;
   static const double defaultPageMessageTextStyleFontSize = 40.0;
