@@ -1,6 +1,6 @@
 import 'package:envied/envied.dart';
 
-import '../util/api_service_constants.dart';
+import '../src/core/util/api_service_constants.dart';
 
 part 'env.g.dart';
 
