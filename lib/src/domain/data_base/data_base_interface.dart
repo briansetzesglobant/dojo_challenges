@@ -1,13 +1,9 @@
-import '../entity/movie_entity.dart';
+import '../../data/data_source/local/DAOs/movie_dao.dart';
 
 abstract interface class DataBaseInterface {
+  MovieDao get movieDao;
+
   Future<void> openDataBase();
 
   Future<void> closeDataBase();
-
-  Future<void> deleteMovies();
-
-  Future<void> insertMovies(List<MovieEntity> movies);
-
-  Future<List<MovieEntity>> getMovies();
 }

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../../core/util/asset_constants.dart';
 import '../../core/util/number_constants.dart';
 import '../../core/util/text_style_constants.dart';
+import 'movie_decorator.dart';
 
 class MovieCard extends StatelessWidget {
   const MovieCard({super.key, required this.title, required this.image});
@@ -13,63 +14,37 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: NumberConstants.movieCardVerticalPadding,
-        horizontal: NumberConstants.movieCardHorizontalPadding,
-      ),
-      child: Container(
-        height: NumberConstants.movieCardHeight,
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.blue,
-            width: NumberConstants.movieCardBorderWidth,
+    return MovieDecorator(
+      child: Column(
+        children: [
+          FittedBox(
+            child: Text(
+              title,
+              style: TextStyleConstants.movieCardTitleTextStyle,
+              textAlign: TextAlign.center,
+            ),
           ),
-          borderRadius: BorderRadius.circular(
-            NumberConstants.movieCardBorderRadius,
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: NumberConstants.movieCardVerticalPadding,
-            horizontal: NumberConstants.movieCardHorizontalPadding,
-          ),
-          child: Column(
-            children: [
-              FittedBox(
-                child: Text(
-                  title,
-                  style: TextStyleConstants.movieCardTitleTextStyle,
-                  textAlign: TextAlign.center,
-                ),
+          const SizedBox(height: NumberConstants.movieCardSizedBox),
+          Expanded(
+            child: ClipOval(
+              child: CachedNetworkImage(
+                imageUrl: image,
+                placeholder:
+                    (_, _) => Image.asset(
+                      AssetConstants.movieCardPlaceholder,
+                      width: NumberConstants.movieCardCachedNetworkImageSize,
+                      height: NumberConstants.movieCardCachedNetworkImageSize,
+                    ),
+                errorWidget:
+                    (_, _, _) => Image.asset(
+                      AssetConstants.movieCardPlaceholder,
+                      width: NumberConstants.movieCardCachedNetworkImageSize,
+                      height: NumberConstants.movieCardCachedNetworkImageSize,
+                    ),
               ),
-              const SizedBox(height: NumberConstants.movieCardSizedBox),
-              Expanded(
-                child: ClipOval(
-                  child: CachedNetworkImage(
-                    imageUrl: image,
-                    placeholder:
-                        (context, url) => Image.asset(
-                          AssetConstants.movieCardPlaceholder,
-                          width:
-                              NumberConstants.movieCardCachedNetworkImageSize,
-                          height:
-                              NumberConstants.movieCardCachedNetworkImageSize,
-                        ),
-                    errorWidget:
-                        (context, url, error) => Image.asset(
-                          AssetConstants.movieCardPlaceholder,
-                          width:
-                              NumberConstants.movieCardCachedNetworkImageSize,
-                          height:
-                              NumberConstants.movieCardCachedNetworkImageSize,
-                        ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }

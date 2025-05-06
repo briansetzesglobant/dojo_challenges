@@ -1,22 +1,22 @@
-import 'dart:convert';
-
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../core/util/data_base_constants.dart';
 import '../../../../domain/data_base/data_base_interface.dart';
-import '../../../../domain/entity/movie_entity.dart';
-import '../../../model/movie.dart';
+import '../DAOs/movie_dao.dart';
 
 class DataBase implements DataBaseInterface {
   DataBase._privateConstructor();
 
   static final DataBase instance = DataBase._privateConstructor();
 
-  late Database _database;
+  late Database _dataBase;
+
+  @override
+  MovieDao get movieDao => MovieDao(dataBase: _dataBase);
 
   @override
   Future<void> openDataBase() async {
-    _database = await openDatabase(
+    _dataBase = await openDatabase(
       DataBaseConstants.dataBaseName,
       onCreate: (Database db, int version) async {
         return await db.execute('''CREATE TABLE ${DataBaseConstants.tableName} (
@@ -42,36 +42,6 @@ class DataBase implements DataBaseInterface {
 
   @override
   Future<void> closeDataBase() async {
-    await _database.close();
-  }
-
-  @override
-  Future<void> deleteMovies() async {
-    await _database.delete(DataBaseConstants.tableName);
-  }
-
-  @override
-  Future<void> insertMovies(List<MovieEntity> movies) async {
-    for (var movie in movies) {
-      var movieJson = (movie as Movie).toJson();
-      movieJson['adult'] = movieJson['adult'] ? 1 : 0;
-      movieJson['genre_ids'] = json.encode(movieJson['genre_ids']);
-      movieJson['video'] = movieJson['video'] ? 1 : 0;
-      await _database.insert(DataBaseConstants.tableName, movieJson);
-    }
-  }
-
-  @override
-  Future<List<MovieEntity>> getMovies() async {
-    List<Map<String, dynamic>> movies = await _database.query(
-      DataBaseConstants.tableName,
-    );
-    return movies.map((movie) {
-      final mutableMovie = Map.of(movie);
-      mutableMovie['adult'] = movie['adult'] == 1;
-      mutableMovie['genre_ids'] = json.decode(movie['genre_ids']);
-      mutableMovie['video'] = movie['video'] == 1;
-      return Movie.fromJson(mutableMovie);
-    }).toList();
+    await _dataBase.close();
   }
 }

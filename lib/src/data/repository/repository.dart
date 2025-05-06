@@ -1,16 +1,16 @@
 import '../../core/resource/data_state.dart';
 import '../../core/util/string_constants.dart';
 import '../../domain/api_service/api_service_interface.dart';
-import '../../domain/data_base/data_base_interface.dart';
 import '../../domain/entity/movie_entity.dart';
 import '../../domain/entity/movie_list_entity.dart';
 import '../../domain/repository/repository_interface.dart';
+import '../data_source/local/DAOs/movie_dao.dart';
 
 class Repository implements RepositoryInterface {
-  Repository({required this.apiService, required this.dataBase});
+  Repository({required this.apiService, required this.movieDao});
 
   final ApiServiceInterface apiService;
-  final DataBaseInterface dataBase;
+  final MovieDao movieDao;
 
   @override
   Future<DataState<MovieListEntity>> getMovieList() async {
@@ -20,18 +20,17 @@ class Repository implements RepositoryInterface {
     switch (movieListDataState.type) {
       case DataStateType.success:
         try {
-          await dataBase.openDataBase();
-          await dataBase.deleteMovies();
-          await dataBase.insertMovies(movieListDataState.data!.results);
+          await movieDao.deleteMovies();
+          await movieDao.insertMovies(movieListDataState.data!.results);
           return DataSuccess(
-            MovieListEntity(results: await dataBase.getMovies()),
+            movieListDataState.data!.copyWith(
+              results: await movieDao.getMovies(),
+            ),
           );
         } catch (exception) {
           return DataFailed(
             '${StringConstants.errorMessage}: ${exception.toString()}',
           );
-        } finally {
-          await dataBase.closeDataBase();
         }
       case DataStateType.empty:
       case DataStateType.error:
@@ -41,8 +40,7 @@ class Repository implements RepositoryInterface {
 
   Future<DataState<MovieListEntity>> _getDataBaseMovies() async {
     try {
-      await dataBase.openDataBase();
-      List<MovieEntity> movies = await dataBase.getMovies();
+      List<MovieEntity> movies = await movieDao.getMovies();
       if (movies.isNotEmpty) {
         return DataSuccess(MovieListEntity(results: movies));
       } else {
@@ -52,8 +50,6 @@ class Repository implements RepositoryInterface {
       return DataFailed(
         '${StringConstants.errorMessage}: ${exception.toString()}',
       );
-    } finally {
-      await dataBase.closeDataBase();
     }
   }
 }
