@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/util/asset_constants.dart';
+import '../../core/util/string_constants.dart';
 import '../provider/provider.dart';
 import '../widget/data_widget.dart';
 import '../widget/splash_screen.dart';
+import '../widget/unsuccess.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -28,7 +31,11 @@ class _HomePageState extends ConsumerState<HomePage> {
               });
             },
           ),
-      error: (_, __) => SizedBox.shrink(),
+      error:
+          (exception, _) => Unsuccess(
+            text: '${StringConstants.errorMessage}: ${exception.toString()}',
+            image: AssetConstants.homePageError,
+          ),
       loading: () => SplashScreen(),
     );
   }
