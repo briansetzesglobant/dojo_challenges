@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart';
 
 import '../../../../core/util/data_base_constants.dart';
@@ -13,6 +14,12 @@ class DataBase implements DataBaseInterface {
 
   @override
   MovieDao get movieDao => MovieDao(dataBase: _dataBase);
+
+  @visibleForTesting
+  set testDataBase(Database db) => _dataBase = db;
+
+  @visibleForTesting
+  Database get testDataBase => _dataBase;
 
   @override
   Future<void> openDataBase() async {

@@ -33,7 +33,7 @@ class _HomePageState extends ConsumerState<HomePage> {
           ),
       error:
           (exception, _) => Unsuccess(
-            text: '${StringConstants.errorMessage}: ${exception.toString()}',
+            text: '${StringConstants.errorMessage}${exception.toString()}',
             image: AssetConstants.homePageError,
           ),
       loading: () => SplashScreen(),

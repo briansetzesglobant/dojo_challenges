@@ -12,6 +12,7 @@ env.g.dart
 .svn/
 .flutter-plugins-dependencies
 Podfile
+coverage/
 
 # IntelliJ related
 *.iml

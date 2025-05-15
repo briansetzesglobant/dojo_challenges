@@ -29,7 +29,7 @@ class Repository implements RepositoryInterface {
           );
         } catch (exception) {
           return DataFailed(
-            '${StringConstants.errorMessage}: ${exception.toString()}',
+            '${StringConstants.errorMessage}${exception.toString()}',
           );
         }
       case DataStateType.empty:
@@ -48,7 +48,7 @@ class Repository implements RepositoryInterface {
       }
     } catch (exception) {
       return DataFailed(
-        '${StringConstants.errorMessage}: ${exception.toString()}',
+        '${StringConstants.errorMessage}${exception.toString()}',
       );
     }
   }

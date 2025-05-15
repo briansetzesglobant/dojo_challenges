@@ -12,7 +12,9 @@ import '../../../../domain/entity/movie_list_entity.dart';
 import '../../../model/movie_list.dart';
 
 class ApiService implements ApiServiceInterface {
-  Client client = Client();
+  ApiService({required this.client});
+
+  final Client client;
 
   @override
   Future<DataState<MovieListEntity>> getMovieList() async {
@@ -33,12 +35,12 @@ class ApiService implements ApiServiceInterface {
         }
       } else {
         return DataFailed(
-          '${StringConstants.errorMessage}: ${response.statusCode}',
+          '${StringConstants.errorMessage}${response.statusCode}',
         );
       }
     } catch (exception) {
       return DataFailed(
-        '${StringConstants.errorMessage}: ${exception.toString()}',
+        '${StringConstants.errorMessage}${exception.toString()}',
       );
     }
   }
