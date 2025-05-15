@@ -37,6 +37,8 @@ dependencies:
   envied_generator: ^1.1.1
   sqflite: ^2.4.2
   flutter_riverpod: ^2.6.1
+  mockito: ^5.4.6
+  sqflite_common_ffi: ^2.3.5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

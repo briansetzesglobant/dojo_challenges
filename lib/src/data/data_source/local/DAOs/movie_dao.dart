@@ -17,7 +17,7 @@ class MovieDao {
 
   Future<void> insertMovies(List<MovieEntity> movies) async {
     for (var movie in movies) {
-      var movieJson = (movie as Movie).toJson();
+      final movieJson = (movie as Movie).toJson();
       movieJson['adult'] = movieJson['adult'] ? 1 : 0;
       movieJson['genre_ids'] = json.encode(movieJson['genre_ids']);
       movieJson['video'] = movieJson['video'] ? 1 : 0;
@@ -26,15 +26,15 @@ class MovieDao {
   }
 
   Future<List<MovieEntity>> getMovies() async {
-    List<Map<String, dynamic>> movies = await dataBase.query(
+    List<Map<String, dynamic>> movieJsons = await dataBase.query(
       DataBaseConstants.tableName,
     );
-    return movies.map((movie) {
-      final mutableMovie = Map.of(movie);
-      mutableMovie['adult'] = movie['adult'] == 1;
-      mutableMovie['genre_ids'] = json.decode(movie['genre_ids']);
-      mutableMovie['video'] = movie['video'] == 1;
-      return Movie.fromJson(mutableMovie);
+    return movieJsons.map((movieJson) {
+      final mutableMovieJson = Map.of(movieJson);
+      mutableMovieJson['adult'] = movieJson['adult'] == 1;
+      mutableMovieJson['genre_ids'] = json.decode(movieJson['genre_ids']);
+      mutableMovieJson['video'] = movieJson['video'] == 1;
+      return Movie.fromJson(mutableMovieJson);
     }).toList();
   }
 }
