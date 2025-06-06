@@ -26,7 +26,7 @@ class Unsuccess extends StatelessWidget {
                   width: NumberConstants.imageSize,
                   height: NumberConstants.imageSize,
                 ),
-                const SizedBox(height: NumberConstants.sizedBoxSize),
+                const SizedBox(height: NumberConstants.sizedBoxHeight),
                 Text(
                   text,
                   style: TextStyleConstants.unsuccessMessageTextStyle,

@@ -20,7 +20,7 @@ class SplashScreen extends StatelessWidget {
             width: NumberConstants.imageSize,
             height: NumberConstants.imageSize,
           ),
-          const SizedBox(height: NumberConstants.sizedBoxSize),
+          const SizedBox(height: NumberConstants.sizedBoxHeight),
           const Center(
             child: CircularProgressIndicator(
               color: ColorConstants.appThemeColor,

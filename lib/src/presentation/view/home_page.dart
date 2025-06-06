@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/util/asset_constants.dart';
 import '../../core/util/string_constants.dart';
-import '../provider/provider.dart';
+import '../../di/provider/provider.dart';
 import '../widget/data_widget.dart';
 import '../widget/splash_screen.dart';
 import '../widget/unsuccess.dart';

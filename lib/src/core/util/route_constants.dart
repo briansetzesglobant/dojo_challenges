@@ -1,3 +1,4 @@
 abstract class RouteConstants {
-  static const String homeRoute = '/';
+  static const String authRoute = '/';
+  static const String homeRoute = '/home';
 }

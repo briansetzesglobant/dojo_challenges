@@ -1,6 +1,7 @@
 abstract class NumberConstants {
   static const double movieScaffoldButtonPadding = 10.0;
   static const double movieScaffoldButtonTextStyleFontSize = 30.0;
+  static const double movieScaffoldSizedBoxHeight = 10.0;
 
   static const double unsuccessPadding = 20.0;
   static const double unsuccessMessageTextStyleFontSize = 40.0;
@@ -22,7 +23,12 @@ abstract class NumberConstants {
 
   static const int voteCountRepositoryCondition = 20000;
 
+  static const double authPagePadding = 20.0;
+  static const double authPageTopSizedBoxHeight = 30.0;
+  static const double authPageCenterSizedBoxHeight = 70.0;
+  static const double authPageBottomSizedBoxHeight = 20.0;
+
   static const int appThemeColorHex = 0xFF3079C2;
   static const double imageSize = 200.0;
-  static const double sizedBoxSize = 50.0;
+  static const double sizedBoxHeight = 50.0;
 }
