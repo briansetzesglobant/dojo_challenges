@@ -4,13 +4,13 @@ import 'package:dojo_challenges/src/data/data_source/local/data_base/data_base.d
 import 'package:dojo_challenges/src/data/data_source/remote/api_service/api_service.dart';
 import 'package:dojo_challenges/src/data/repository/repository.dart';
 import 'package:dojo_challenges/src/data/repository/vote_count_repository.dart';
+import 'package:dojo_challenges/src/di/provider/provider.dart';
 import 'package:dojo_challenges/src/domain/api_service/api_service_interface.dart';
 import 'package:dojo_challenges/src/domain/data_base/data_base_interface.dart';
 import 'package:dojo_challenges/src/domain/entity/movie_list_entity.dart';
 import 'package:dojo_challenges/src/domain/repository/repository_interface.dart';
 import 'package:dojo_challenges/src/domain/use_case/implementation/use_case.dart';
 import 'package:dojo_challenges/src/domain/use_case/use_case_interface.dart';
-import 'package:dojo_challenges/src/presentation/provider/provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart';

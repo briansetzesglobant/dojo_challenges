@@ -1,26 +1,57 @@
-import 'package:dojo_challenges/src/core/util/string_constants.dart';
-import 'package:dojo_challenges/src/presentation/widget/movie_scaffold.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_test/flutter_test.dart';
+import 'dart:async';
 
+import 'package:dojo_challenges/src/core/util/string_constants.dart';
+import 'package:dojo_challenges/src/di/provider/provider.dart';
+import 'package:dojo_challenges/src/domain/data_base/auth_data_base_interface.dart';
+import 'package:dojo_challenges/src/presentation/widget/movie_scaffold.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+
+import 'movie_scaffold_test.mocks.dart';
+
+@GenerateMocks([AuthDataBaseInterface])
 void main() {
   group('MovieScaffold test', () {
+    late AuthDataBaseInterface mockAuthDataBase;
+    late StreamController<User?> authStreamController;
+
+    setUp(() {
+      mockAuthDataBase = MockAuthDataBaseInterface();
+      authStreamController = StreamController<User?>();
+    });
+
+    tearDown(() {
+      authStreamController.close();
+    });
+
     testWidgets(
       'MovieScaffold() should display the movie scaffold with parameters',
       (WidgetTester tester) async {
         //Given
         bool tappedButton = false;
+        when(
+          mockAuthDataBase.authStateChanges,
+        ).thenAnswer((_) => authStreamController.stream);
 
         //When
         await tester.pumpWidget(
-          MaterialApp(
-            home: MovieScaffold(
-              title: 'title',
-              backgroundColor: Colors.white,
-              callBack: () {
-                tappedButton = true;
-              },
-              child: Text('text'),
+          ProviderScope(
+            overrides: [
+              authDataBaseProvider.overrideWithValue(mockAuthDataBase),
+            ],
+            child: MaterialApp(
+              home: MovieScaffold(
+                title: 'title',
+                backgroundColor: Colors.white,
+                callBack: () {
+                  tappedButton = true;
+                },
+                child: Text('text'),
+              ),
             ),
           ),
         );
@@ -93,10 +124,18 @@ void main() {
       'MovieScaffold() should display the movie scaffold without parameters',
       (WidgetTester tester) async {
         //Given
+        when(
+          mockAuthDataBase.authStateChanges,
+        ).thenAnswer((_) => authStreamController.stream);
 
         //When
         await tester.pumpWidget(
-          MaterialApp(home: MovieScaffold(child: Text('text'))),
+          ProviderScope(
+            overrides: [
+              authDataBaseProvider.overrideWithValue(mockAuthDataBase),
+            ],
+            child: MaterialApp(home: MovieScaffold(child: Text('text'))),
+          ),
         );
 
         //Then
@@ -120,7 +159,7 @@ void main() {
             of: find.byType(Scaffold),
             matching: find.byType(Padding),
           ),
-          findsOneWidget,
+          findsAtLeast(1),
         );
         expect(
           find.descendant(of: find.byType(AppBar), matching: find.byType(Text)),
