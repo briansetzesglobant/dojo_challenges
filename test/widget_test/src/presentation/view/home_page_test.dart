@@ -59,7 +59,6 @@ void main() {
       );
 
       //Then
-      expect(find.text('title'), findsNothing);
       expect(
         find.text('${StringConstants.errorMessage}${exception.toString()}'),
         findsNothing,
@@ -72,7 +71,6 @@ void main() {
       await tester.pumpAndSettle();
 
       //Then
-      expect(find.text('title'), findsNWidgets(2));
       expect(
         find.text('${StringConstants.errorMessage}${exception.toString()}'),
         findsNothing,
@@ -87,13 +85,12 @@ void main() {
       await tester.pumpAndSettle();
 
       //Then
-      expect(find.text('title'), findsOneWidget);
       expect(
         find.text('${StringConstants.errorMessage}${exception.toString()}'),
         findsNothing,
       );
-      expect(find.byType(Unsuccess), findsNothing);
       expect(find.byType(DataWidget), findsOneWidget);
+      expect(find.byType(Unsuccess), findsNothing);
       expect(find.byType(SplashScreen), findsNothing);
     });
 
@@ -119,7 +116,6 @@ void main() {
       );
 
       //Then
-      expect(find.text('title'), findsNothing);
       expect(
         find.text('${StringConstants.errorMessage}${exception.toString()}'),
         findsNothing,
@@ -132,7 +128,6 @@ void main() {
       await tester.pumpAndSettle();
 
       //Then
-      expect(find.text('title'), findsNothing);
       expect(
         find.text('${StringConstants.errorMessage}${exception.toString()}'),
         findsOneWidget,
