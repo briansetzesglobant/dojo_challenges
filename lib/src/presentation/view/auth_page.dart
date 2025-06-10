@@ -4,9 +4,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/util/color_constants.dart';
 import '../../core/util/number_constants.dart';
 import '../../core/util/route_constants.dart';
 import '../../core/util/string_constants.dart';
+import '../../core/util/text_style_constants.dart';
 import '../../di/provider/provider.dart';
 
 class AuthPage extends ConsumerStatefulWidget {
@@ -50,7 +52,7 @@ class _AuthPageState extends ConsumerState<AuthPage> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              '${StringConstants.authPageErrorText}${e.toString()}',
+              '${StringConstants.authPageSnackBarErrorText}${e.toString()}',
             ),
           ),
         );
@@ -64,8 +66,8 @@ class _AuthPageState extends ConsumerState<AuthPage> {
       appBar: AppBar(
         title: Text(
           isLogin
-              ? StringConstants.authPageLoginText
-              : StringConstants.authPageRegisterText,
+              ? StringConstants.authPageLoginButtonText
+              : StringConstants.authPageRegisterButtonText,
         ),
       ),
       body: Padding(
@@ -74,26 +76,40 @@ class _AuthPageState extends ConsumerState<AuthPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
+              cursorColor: ColorConstants.appThemeColor,
               controller: emailController,
               decoration: InputDecoration(
-                labelText: StringConstants.authPageEmailText,
+                labelText: StringConstants.authPageEmailTextFieldText,
+                labelStyle: TextStyleConstants.generaTextStyle,
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: ColorConstants.appThemeColor),
+                ),
               ),
             ),
             SizedBox(height: NumberConstants.authPageTopSizedBoxHeight),
             TextField(
+              cursorColor: ColorConstants.appThemeColor,
               controller: passwordController,
               decoration: InputDecoration(
-                labelText: StringConstants.authPagePasswordText,
+                labelText: StringConstants.authPagePasswordTextFieldText,
+                labelStyle: TextStyleConstants.generaTextStyle,
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: ColorConstants.appThemeColor),
+                ),
               ),
               obscureText: true,
             ),
             SizedBox(height: NumberConstants.authPageCenterSizedBoxHeight),
             ElevatedButton(
               onPressed: _handleAuth,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: ColorConstants.appThemeColor,
+              ),
               child: Text(
                 isLogin
-                    ? StringConstants.authPageLoginText
-                    : StringConstants.authPageRegisterText,
+                    ? StringConstants.authPageLoginButtonText
+                    : StringConstants.authPageRegisterButtonText,
+                style: TextStyleConstants.generaTextStyle,
               ),
             ),
             SizedBox(height: NumberConstants.authPageBottomSizedBoxHeight),
@@ -101,8 +117,9 @@ class _AuthPageState extends ConsumerState<AuthPage> {
               onPressed: () => setState(() => isLogin = !isLogin),
               child: Text(
                 isLogin
-                    ? StringConstants.authPageCreateAccountText
-                    : StringConstants.authPageHaveAnAccountLoginText,
+                    ? StringConstants.authPageCreateAccountButtonText
+                    : StringConstants.authPageHaveAnAccountLoginButtonText,
+                style: TextStyleConstants.generaTextStyle,
               ),
             ),
           ],

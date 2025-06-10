@@ -42,7 +42,9 @@ class _MovieScaffoldState extends ConsumerState<MovieScaffold> {
       user,
     ) {
       if (user == null && mounted) {
-        Navigator.of(context).pushReplacementNamed(RouteConstants.authRoute);
+        Navigator.of(
+          context,
+        ).pushNamedAndRemoveUntil(RouteConstants.authRoute, (_) => false);
       }
     });
   }
@@ -56,7 +58,7 @@ class _MovieScaffoldState extends ConsumerState<MovieScaffold> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text(
-              '${StringConstants.movieScaffoldErrorText}${e.toString()}',
+              '${StringConstants.movieScaffoldSnackBarErrorText}${e.toString()}',
             ),
           ),
         );
@@ -68,7 +70,17 @@ class _MovieScaffoldState extends ConsumerState<MovieScaffold> {
   Widget build(BuildContext context) {
     final user = ref.watch(authStateChangesProvider).asData?.value;
     return Scaffold(
-      appBar: widget.title != null ? AppBar(title: Text(widget.title!)) : null,
+      appBar:
+          widget.title != null
+              ? AppBar(
+                title: Text(
+                  widget.title!,
+                  style: TextStyleConstants.generaTextStyle.copyWith(
+                    fontSize: NumberConstants.movieScaffoldTextStyleFontSize,
+                  ),
+                ),
+              )
+              : null,
       backgroundColor: widget.backgroundColor,
       body: SafeArea(child: widget.child),
       floatingActionButton: IconButton(
@@ -88,16 +100,20 @@ class _MovieScaffoldState extends ConsumerState<MovieScaffold> {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: ColorConstants.appThemeColor,
                 ),
-                child: const Text(
+                child: Text(
                   StringConstants.movieScaffoldButtonText,
-                  style: TextStyleConstants.movieScaffoldButtonTextStyle,
-                  textAlign: TextAlign.center,
+                  style: TextStyleConstants.generaTextStyle.copyWith(
+                    fontSize: NumberConstants.movieScaffoldTextStyleFontSize,
+                  ),
                 ),
               ),
             )
           else
             SizedBox(height: NumberConstants.movieScaffoldSizedBoxHeight),
-          Text('${StringConstants.movieScaffoldWelcomeText}${user?.email}'),
+          Text(
+            '${StringConstants.movieScaffoldWelcomeText}${user?.email}',
+            style: TextStyleConstants.generaTextStyle,
+          ),
           SizedBox(height: NumberConstants.movieScaffoldSizedBoxHeight),
         ],
       ),

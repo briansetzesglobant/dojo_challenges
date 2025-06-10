@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../core/util/route_constants.dart';
 import '../../presentation/view/auth_page.dart';
+import '../../presentation/view/backup_page.dart';
 import '../../presentation/view/default_page.dart';
 import '../../presentation/view/home_page.dart';
 
@@ -12,6 +13,8 @@ class AppRoutes {
         return MaterialPageRoute(builder: (_) => AuthPage());
       case RouteConstants.homeRoute:
         return MaterialPageRoute(builder: (_) => HomePage());
+      case RouteConstants.backupRoute:
+        return MaterialPageRoute(builder: (_) => BackupPage());
       default:
         return MaterialPageRoute(builder: (_) => const DefaultPage());
     }
